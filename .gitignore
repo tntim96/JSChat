@@ -1,0 +1,7 @@
+build
+dist
+/lib/jce.zip
+/appProperties
+out
+.idea
+/*.key

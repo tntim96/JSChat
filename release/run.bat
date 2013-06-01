@@ -1,0 +1,1 @@
+java -cp "lib\JSChat.jar;lib\bcprov-ext-jdk15on-148.jar" chat.JSChat

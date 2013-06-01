@@ -1,0 +1,18 @@
+Todo:
+- Disable "Secure Channel" item as soon as disable code is received
+- Only enable "Secure Channel" item when app is connected
+- Display SHA, MD5 as HexDigits (f9:de:0f etc...)
+- Make events for stages (generate 1st half, etc...) of channel securing (display as Modal dialog?)
+- Allow choice of algorithms and strength? ElGamal or DH instead of RSA???
+- Choose save location for keys, encocrypted/decrupted files
+
+Leave for now:
+- Allow choice of provider (how to handle
+	java.security.Security.addProvider(new au.net.aba.crypto.provider.ABAProvider());
+	call)
+	Too hard given provider specific code
+- Add new entry point for different provider installs (java.security vs policy file)
+	Too hard given provider specific code
+- Change storage/loading of keys to use raw bytes rather than objects (can't load RSA as bytes)
+	ABA doesn't allow it. Serialization of keys doesn't work due to serialVersionUID
+	problems. Stored modolus and exponent BigIntegers instead.
