@@ -1,5 +1,5 @@
-JSChat - A Secure Chat and File Transfer GUI Program
-====================================================
+JSChat - A Secure Chat and File Transfer Program
+================================================
 
 JSChat is a platform independent secure chat and file transfer program written in Java Swing.
 
@@ -25,7 +25,7 @@ What do I need to run JSChat?
 * Install a Java Runtime Environment (minimum Java 1.5)
 * Save Bouncy Castle's JCA Provider [bcprov-ext-jdk15on-148.jar](http://www.bouncycastle.org/download/bcprov-ext-jdk15on-148.jar) to JSChat's lib directory
 * Install [Oracle's unlimited strength JCE](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-* Run `run.bat` or `run.sh` (or manually `java "dist/JSChat:lib/bcprov-ext-jdk15on-148.jar" chat.JSChat`)
+* Run `run.bat` or `run.sh` (or manually `java "dist/JSChat.jar:lib/bcprov-ext-jdk15on-148.jar" chat.JSChat`)
 
 Encryption Details
 ------------------
