@@ -361,7 +361,7 @@ public class TalkThread implements Runnable {
 		byte[] keyBytes = concatenate(firstHalf, secondHalf);
 		SecretKey sessionKey = CryptMenu.getSecretKey(keyBytes);
 		spec = new IvParameterSpec(iv);
-		Cipher ciphers[] = CryptMenu.getStreamCiphers(spec,sessionKey);
+		Cipher ciphers[] = CryptMenu.getStreamCiphers(sessionKey);
 		Cipher encrypter = ciphers[0];
 		Cipher decrypter = ciphers[1];
 

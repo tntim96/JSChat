@@ -46,12 +46,10 @@ public class CryptMenu extends JMenu {
 		return new SecretKeySpec(keyBytes, "RC4");
 	}
 
-	public static Cipher[] getStreamCiphers(IvParameterSpec spec, SecretKey sessionKey) throws Exception {
+	public static Cipher[] getStreamCiphers(SecretKey sessionKey) throws Exception {
 		Cipher encrypter = Cipher.getInstance("RC4","BC");
-		//encrypter.init(Cipher.ENCRYPT_MODE, sessionKey, spec);
 		encrypter.init(Cipher.ENCRYPT_MODE, sessionKey);
 		Cipher decrypter = Cipher.getInstance("RC4","BC");
-		//decrypter.init(Cipher.DECRYPT_MODE, sessionKey, spec);
 		decrypter.init(Cipher.DECRYPT_MODE, sessionKey);
 		return new Cipher[]{encrypter,decrypter};
 	}
