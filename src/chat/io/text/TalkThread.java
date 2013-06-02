@@ -21,10 +21,7 @@ import chat.State;
 import chat.io.file.FileThread;
 import chat.menu.CryptMenu;
 
-import javax.crypto.Cipher;
-import javax.crypto.CipherInputStream;
-import javax.crypto.CipherOutputStream;
-import javax.crypto.SecretKey;
+import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
 import javax.swing.*;
 import javax.swing.event.EventListenerList;
@@ -33,6 +30,8 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
+import java.security.InvalidKeyException;
+import java.security.Key;
 import java.security.SecureRandom;
 
 /** Text communication and signalling */
@@ -52,10 +51,10 @@ public class TalkThread implements Runnable {
 	private File file;
 	/** Number of bytes previously transmitted */
 	private long bytesTx;
-	
-	private byte[] firstHalf = new byte[64];
-	private byte[] secondHalf = new byte[64];
-	private byte[] iv = new byte[8];
+
+    private byte[] iv = new byte[8];
+    private byte[] firstHalf = new byte[(117-iv.length)];//RSA block size is 117
+    private byte[] secondHalf = new byte[firstHalf.length];
 	IvParameterSpec spec;
 	SecretKey fileSessionKey;
 	private Cipher fileEncrypter, fileDecrypter;
@@ -136,9 +135,7 @@ public class TalkThread implements Runnable {
 			sr.nextBytes(firstHalf);
 			sr.nextBytes(iv);
 			System.out.println("Cipher");
-			Cipher cipher = CryptMenu.getAsymmetricCipher();
-			cipher.init(Cipher.ENCRYPT_MODE, CryptMenu.publicKey);
-			byte[] ciphertext = cipher.doFinal(concatenate(firstHalf, iv));
+            byte[] ciphertext = encrypt(CryptMenu.getAsymmetricCipher(), concatenate(firstHalf, iv), CryptMenu.publicKey);
 			System.out.println("Sent ciphertext.length="+ciphertext.length);
 			outputStream.writeInt(ciphertext.length);
 			outputStream.write(ciphertext);
@@ -154,7 +151,7 @@ public class TalkThread implements Runnable {
 		}
 	}
 
-	private synchronized void secureChannelResp(byte[] ciphertext) {
+    private synchronized void secureChannelResp(byte[] ciphertext) {
 		try {
 			outputStream.write(Message.SECURE_RESP);
 			//Allow remote user to start generating their half of key
@@ -234,9 +231,7 @@ public class TalkThread implements Runnable {
 							byte[] remoteEncrypted = new byte[length];
 							inputStream.readFully(remoteEncrypted);
 							Cipher cipher = CryptMenu.getAsymmetricCipher();
-							cipher.init(Cipher.DECRYPT_MODE, CryptMenu.privateKey);
-							System.out.println("After cipherinit");
-							byte[] decrypted = cipher.doFinal(remoteEncrypted);
+                            byte[] decrypted = decrypt(cipher, remoteEncrypted, CryptMenu.privateKey);
 							System.out.println("After do final");
 							System.arraycopy(decrypted, 0, firstHalf, 0, firstHalf.length);
 							System.arraycopy(decrypted, firstHalf.length, iv, 0, iv.length);
@@ -319,7 +314,19 @@ public class TalkThread implements Runnable {
 		}
 	}
 
-	public boolean isConnected() {return connected;}
+    static byte[] encrypt(Cipher cipher, byte[] bytes, Key publicKey) throws Exception {
+        cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+
+        return cipher.doFinal(bytes);
+    }
+
+    static byte[] decrypt(Cipher cipher, byte[] bytes, Key privateKey) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+        cipher.init(Cipher.DECRYPT_MODE, privateKey);
+        System.out.println("After cipherinit");
+        return cipher.doFinal(bytes);
+    }
+
+    public boolean isConnected() {return connected;}
 	public String getRemoteIP() {return remoteIP;}
 
 	public void addMessageListener(MessageListener l) {
@@ -342,12 +349,12 @@ public class TalkThread implements Runnable {
 		return "Connection "+id;
 	}
 
-	protected byte[] concatenate(byte[] a, byte[] b) {
-		byte[] r =  new byte[a.length + b.length];
-		System.arraycopy(a, 0, r, 0, 				a.length);
-		System.arraycopy(b, 0, r, a.length, b.length);
-		return r;
-	}
+    protected byte[] concatenate(byte[] a, byte[] b) {
+        byte[] r = new byte[a.length + b.length];
+        System.arraycopy(a, 0, r, 0, a.length);
+        System.arraycopy(b, 0, r, a.length, b.length);
+        return r;
+    }
 
 	protected synchronized void setupCipherStreams(byte[] firstHalf, byte[] secondHalf, byte[] iv) throws Exception {
 		System.out.println("Setting up cipher streams");
