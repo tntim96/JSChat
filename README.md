@@ -30,8 +30,8 @@ What do I need to run JSChat?
 Encryption Details
 ------------------
 * Public/Private Keys are RSA, 1024 bit
-* Text chat uses RC4, 128 bit
-* File transfer uses Blowfish, 128 bit, CBC, PKCS#7
+* Text chat uses RC4, 448 bit
+* File transfer uses Blowfish, 448 bit, CBC, PKCS#7
 
 Future changes are likely to make encryption implementations configurable.
 

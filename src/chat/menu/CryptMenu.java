@@ -66,7 +66,7 @@ public class CryptMenu extends JMenu {
 	public Key symmetricKey, asymmetricKey;
 	private int bufSize = 8192;
 	int asymmetricStrength = 1024;
-	int symmetricStrength = 128;
+	int symmetricStrength = 448;
 	IvParameterSpec ivSpec = new IvParameterSpec(new byte[64]);
 
 
