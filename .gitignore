@@ -4,4 +4,4 @@ dist
 /appProperties
 out
 /*.key
-/lib/bcprov-ext-jdk15on-148.jar
+/lib/bcprov-jdk15on-148.jar

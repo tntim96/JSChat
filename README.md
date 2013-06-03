@@ -23,9 +23,9 @@ What do I need to run JSChat?
 -----------------------------
 * JSChat.jar binary (run `ant jar`)
 * Install a Java Runtime Environment (minimum Java 1.5)
-* Save Bouncy Castle's JCA Provider [bcprov-ext-jdk15on-148.jar](http://www.bouncycastle.org/download/bcprov-ext-jdk15on-148.jar) to JSChat's lib directory
+* Save Bouncy Castle's JCA Provider [bcprov-jdk15on-148.jar](http://www.bouncycastle.org/download/bcprov-jdk15on-148.jar) to JSChat's lib directory
 * Install [Oracle's unlimited strength JCE](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-* Run `run.bat` or `run.sh` (or manually `java "dist/JSChat.jar:lib/bcprov-ext-jdk15on-148.jar" chat.JSChat`)
+* Run `run.bat` or `run.sh` (or manually `java "dist/JSChat.jar:lib/bcprov-jdk15on-148.jar" chat.JSChat`)
 
 Encryption Details
 ------------------

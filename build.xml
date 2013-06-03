@@ -32,7 +32,7 @@
 		<javac srcdir="${src}" destdir="${build}/classes" target="1.5" source="1.5">
 			<classpath>
 				<pathelement path="${build}/classes"/>
-				<pathelement location="lib/bcprov-ext-jdk15on-148.jar"/>
+				<pathelement location="lib/bcprov-jdk15on-148.jar"/>
 			</classpath>
 		</javac>
 	</target>
