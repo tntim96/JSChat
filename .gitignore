@@ -3,5 +3,5 @@ dist
 /lib/jce.zip
 /appProperties
 out
-.idea
 /*.key
+/lib/bcprov-ext-jdk15on-148.jar
