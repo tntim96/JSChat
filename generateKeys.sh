@@ -1,0 +1,1 @@
+keytool -genkeypair -keysize 1028 -keyAlg RSA -alias TN -keystore ./keyStore
