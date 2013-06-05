@@ -4,23 +4,11 @@
     <bookmark url="file://$PROJECT_DIR$/src/chat/io/text/TalkThread.java" line="54" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="96b9ff01-eb73-40cf-a62b-3941cde1a519" name="Default" comment="Fix symmetric key exchange (still some work required). Swap from Blowfish to AES">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/buildtime/com.springsource.org.objenesis-1.0.0.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/buildtime/hamcrest-all-1.3.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/buildtime/junit-4.11.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/buildtime/mockito-core-1.9.5.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/runConfigurations/JSChat.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/chat/util/SecurityUtils.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/chat/util/SecurityUtilsTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/buildtime.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generateKeys.sh" />
-      <change type="DELETED" beforePath="C:\java\JSChat - working\test\rsa-private.key" afterPath="" />
-      <change type="DELETED" beforePath="C:\java\JSChat - working\test\rsa-public.key" afterPath="" />
+    <list default="true" id="96b9ff01-eb73-40cf-a62b-3941cde1a519" name="Default" comment="Revert broken symmetric key exchange and swap back to Blowfish from AES (temporarily).">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/chat/menu/CryptMenu.java" afterPath="$PROJECT_DIR$/src/chat/menu/CryptMenu.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/JSChat.iml" afterPath="$PROJECT_DIR$/JSChat.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/chat/util/SecurityUtilsTest.java" afterPath="$PROJECT_DIR$/test/chat/util/SecurityUtilsTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/chat/io/text/TalkThread.java" afterPath="$PROJECT_DIR$/src/chat/io/text/TalkThread.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/chat/io/text/TalkThreadTest.java" afterPath="$PROJECT_DIR$/test/chat/io/text/TalkThreadTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="JSChat.iws" />
@@ -41,12 +29,12 @@
     <file path="/VocabSetTest.java" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1369550159530" ignored="false" />
     <file path="/Unit3-noms.txt" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1369549520949" ignored="false" />
     <file path="$PROJECT_DIR$/../Vocab/src/main/java/translator/Downloader.java" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1369554679296" ignored="false" />
-    <file path="/Dummy.txt" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1370383737049" ignored="false" />
+    <file path="/Dummy.txt" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1370418573746" ignored="false" />
     <file path="$PROJECT_DIR$/../Vocab/src/main/resources/Unit3-adjectifs.txt" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1369552407170" ignored="false" />
     <file path="/Downloader.java" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1369553869589" ignored="false" />
     <file path="$PROJECT_DIR$/../JSCover-howard-abrams/doc/index.html" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1369555762922" ignored="false" />
     <file path="$PROJECT_DIR$/../JSCover-howard-abrams/doc/js/nav.js" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1369555774527" ignored="false" />
-    <file path="/a.dummy" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1370231652225" ignored="false" />
+    <file path="/a.dummy" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1370418205422" ignored="false" />
     <file path="$PROJECT_DIR$/../JSCover-howard-abrams/doc/links.html" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1369555826387" ignored="false" />
     <file path="$PROJECT_DIR$/../JSCover-howard-abrams/doc/faq.html" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1369555826387" ignored="false" />
     <file path="$PROJECT_DIR$/../JSCover-howard-abrams/doc/status.html" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1369555826387" ignored="false" />
@@ -68,21 +56,21 @@
     <file path="/instructions.txt" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1370090825376" ignored="false" />
     <file path="/jschat.policy" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1370137107191" ignored="false" />
     <file path="/JSChat.sh" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1370077541731" ignored="false" />
-    <file path="/CryptMenu.java" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1370206227915" ignored="false" />
+    <file path="/CryptMenu.java" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1370418464380" ignored="false" />
     <file path="/TalkThread.java" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1370148061439" ignored="false" />
     <file path="/java_h.policy" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1370086986521" ignored="false" />
     <file path="/run_h.bat" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1370087065566" ignored="false" />
     <file path="/AboutDialog.java" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1370090170413" ignored="false" />
     <file path="/run.sh" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1370128372913" ignored="false" />
     <file path="/build.xml" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1370091281419" ignored="false" />
-    <file path="/README.md" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1370383049251" ignored="false" />
+    <file path="/README.md" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1370416654068" ignored="false" />
     <file path="/CRC32.java" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1370127138653" ignored="false" />
     <file path="/run.bat" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1370128323562" ignored="false" />
     <file path="/KeyManager.java" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1370137973012" ignored="false" />
     <file path="/TalkThreadTest.groovy" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1370145139772" ignored="false" />
     <file path="/TalkThreadTest.java" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1370147350187" ignored="false" />
     <file path="/*.regexp" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1370206199999" ignored="false" />
-    <file path="/SecurityUtilsTest.java" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1370383355821" ignored="false" />
+    <file path="/SecurityUtilsTest.java" changelist="96b9ff01-eb73-40cf-a62b-3941cde1a519" time="1370416407815" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +147,46 @@
     <favorites_list name="JSChat" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="CryptMenu.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/chat/menu/CryptMenu.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="47" column="58" selection-start="1651" selection-end="1651" vertical-scroll-proportion="0.36346865">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TalkThread.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/chat/io/text/TalkThread.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="368" column="47" selection-start="12972" selection-end="12972" vertical-scroll-proportion="-25.28">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SecurityUtilsTest.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/chat/util/SecurityUtilsTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="39" column="55" selection-start="1246" selection-end="1246" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="33" column="46" selection-start="1442" selection-end="1442" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -183,16 +210,16 @@
         <option value="$PROJECT_DIR$/src/chat/keystore/KeyManager.java" />
         <option value="$PROJECT_DIR$/test/chat/io/text/TalkThreadTest.groovy" />
         <option value="$PROJECT_DIR$/src/chat/JSChat.java" />
-        <option value="$PROJECT_DIR$/src/chat/io/text/TalkThread.java" />
-        <option value="$PROJECT_DIR$/src/chat/menu/CryptMenu.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/build.xml" />
         <option value="$PROJECT_DIR$/release/run.sh" />
         <option value="$PROJECT_DIR$/run.bat" />
         <option value="$PROJECT_DIR$/run.sh" />
-        <option value="$PROJECT_DIR$/test/chat/util/SecurityUtilsTest.java" />
         <option value="$PROJECT_DIR$/test/chat/io/text/TalkThreadTest.java" />
+        <option value="$PROJECT_DIR$/src/chat/io/text/TalkThread.java" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/test/chat/util/SecurityUtilsTest.java" />
+        <option value="$PROJECT_DIR$/src/chat/menu/CryptMenu.java" />
       </list>
     </option>
   </component>
@@ -473,8 +500,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.TalkThreadTest" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.SecurityUtilsTest.should" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.SecurityUtilsTest.should" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.TalkThreadTest" />
         <item index="2" class="java.lang.String" itemvalue="Application.JSChat" />
         <item index="3" class="java.lang.String" itemvalue="JUnit.TalkThreadTest.shouldEncryptAndDecrypt" />
         <item index="4" class="java.lang.String" itemvalue="Application.CryptMenu" />
@@ -554,17 +581,22 @@
       <created>1370206135609</created>
       <updated>1370206135609</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Revert broken symmetric key exchange and swap back to Blowfish from AES (temporarily).">
+      <created>1370383930750</created>
+      <updated>1370383930750</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="139" y="6" width="1585" height="1045" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.65050733" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11950099" sideWeight="0.54565954" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39797068" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11950099" sideWeight="0.6550169" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3990981" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -574,11 +606,10 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2738017" sideWeight="0.54565954" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4543405" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2738017" sideWeight="0.6550169" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3449831" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39867842" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -625,7 +656,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove redundant IV parameter for stream cipher" />
+    <option name="LAST_COMMIT_MESSAGE" value="Revert broken symmetric key exchange and swap back to Blowfish from AES (temporarily)." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -649,6 +680,7 @@
     <MESSAGE value="Up symmetric key sizes from 128 to 448" />
     <MESSAGE value="Fix symmetric key exchange (still some work required). Swap from Blowfish to AES" />
     <MESSAGE value="Remove redundant IV parameter for stream cipher" />
+    <MESSAGE value="Revert broken symmetric key exchange and swap back to Blowfish from AES (temporarily)." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -679,11 +711,6 @@
         <state line="187" column="13" selection-start="6198" selection-end="6198" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.7.0_21/jre/lib/jce.jar!/javax/crypto/Cipher.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="109" column="24" selection-start="7296" selection-end="7296" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/chat/Gui.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="66" column="0" selection-start="2157" selection-end="2157" vertical-scroll-proportion="0.0">
@@ -696,13 +723,6 @@
         <state line="19" column="8" selection-start="706" selection-end="706" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/chat/io/text/TalkThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="258" column="81" selection-start="8891" selection-end="8891" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.idea/libraries/jce.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -713,13 +733,6 @@
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state line="7" column="0" selection-start="78" selection-end="78" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="86" selection-start="1266" selection-end="1266" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -759,23 +772,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/chat/menu/CryptMenu.java">
+    <entry file="file://$PROJECT_DIR$/test/chat/io/text/TalkThreadTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="54" selection-start="1839" selection-end="1878" vertical-scroll-proportion="0.0">
+        <state line="14" column="24" selection-start="361" selection-end="361" vertical-scroll-proportion="0.152809">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/chat/util/SecurityUtilsTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="21" selection-start="1554" selection-end="1554" vertical-scroll-proportion="0.0">
+        <state line="39" column="55" selection-start="1246" selection-end="1246" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="46" selection-start="1442" selection-end="1442" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/chat/io/text/TalkThreadTest.java">
+    <entry file="file://$PROJECT_DIR$/src/chat/io/text/TalkThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="24" selection-start="361" selection-end="361" vertical-scroll-proportion="0.152809">
+        <state line="368" column="47" selection-start="12972" selection-end="12972" vertical-scroll-proportion="-25.28">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.7.0_21/jre/lib/jce.jar!/javax/crypto/Cipher.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="44" selection-start="2687" selection-end="2687" vertical-scroll-proportion="0.33254716">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/chat/menu/CryptMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="58" selection-start="1651" selection-end="1651" vertical-scroll-proportion="0.36346865">
           <folding />
         </state>
       </provider>

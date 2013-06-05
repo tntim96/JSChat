@@ -55,7 +55,7 @@ public class TalkThread implements Runnable {
 	
 	private byte[] firstHalf = new byte[64];
 	private byte[] secondHalf = new byte[64];
-	private byte[] iv = new byte[8];
+	private byte[] iv = new byte[16];
 	IvParameterSpec spec;
 	SecretKey fileSessionKey;
 	private Cipher fileEncrypter, fileDecrypter;

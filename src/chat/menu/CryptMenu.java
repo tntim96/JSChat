@@ -51,12 +51,15 @@ public class CryptMenu extends JMenu {
 	}
 
 	public static SecretKey getFileSessionKey(byte[] keyBytes) throws Exception {
-		return new SecretKeySpec(keyBytes, "Blowfish");
+        byte[] bytes = new byte[32];
+        int halfDiff = keyBytes.length - bytes.length;
+        System.arraycopy(keyBytes, halfDiff, bytes, 0, bytes.length);
+		return new SecretKeySpec(bytes, "AES");
 	}
 
 	public static Cipher[] getBlockCiphers() throws Exception {
-		Cipher encrypter = Cipher.getInstance("Blowfish/CBC/PKCS7Padding","BC");
-		Cipher decrypter = Cipher.getInstance("Blowfish/CBC/PKCS7Padding","BC");
+		Cipher encrypter = Cipher.getInstance("AES/CBC/PKCS5Padding","BC");
+		Cipher decrypter = Cipher.getInstance("AES/CBC/PKCS5Padding","BC");
 		return new Cipher[]{encrypter,decrypter};
 	}
 
@@ -282,7 +285,7 @@ public class CryptMenu extends JMenu {
 					int returnValue = fc.showSaveDialog(mainFrame.getContentPane());
 					if (returnValue==JFileChooser.APPROVE_OPTION) {
 						try {
-                            KeyGenerator generator = KeyGenerator.getInstance("Blowfish","BC");
+                            KeyGenerator generator = KeyGenerator.getInstance("AES","BC");
                             generator.init(symmetricStrength, new SecureRandom());
                             symmetricKey = generator.generateKey();
                             FileOutputStream fos = new FileOutputStream(fc.getSelectedFile());
@@ -322,9 +325,9 @@ public class CryptMenu extends JMenu {
 							}
 							fis.close();
 							System.out.println("Read in key");
-                            SecretKeyFactory skf = SecretKeyFactory.getInstance("Blowfish","BC");
-                            symmetricKey = skf.generateSecret(new SecretKeySpec(keyBytes, "Blowfish"));
-							System.out.println("Converted to BlowfishKey");
+                            SecretKeyFactory skf = SecretKeyFactory.getInstance("AES","BC");
+                            symmetricKey = skf.generateSecret(new SecretKeySpec(keyBytes, "AES"));
+							System.out.println("Converted to AESKey");
 							/*
 							ObjectInputStream in = new ObjectInputStream(
 									new FileInputStream(fc.getSelectedFile()));
@@ -346,14 +349,14 @@ public class CryptMenu extends JMenu {
 		encryptSFile.addActionListener(
 			new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					enCodeIt("Blowfish/CBC/PKCS7Padding", true, symmetricKey, ivSpec);
+					enCodeIt("AES/CBC/PKCS5Padding", true, symmetricKey, ivSpec);
 /*
 					JFileChooser fc = new JFileChooser(System.getProperty("user.dir"));
 					fc.setDialogTitle("Choose file to encrypt");
 					int returnValue = fc.showOpenDialog(mainFrame.getContentPane());
 					if (returnValue==JFileChooser.APPROVE_OPTION) {
 						try {
-							Cipher cipher = Cipher.getInstance("Blowfish/CBC/PKCS7Padding","BC");
+							Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding","BC");
 							IvParameterSpec spec = new IvParameterSpec(iv);
 							cipher.init(Cipher.ENCRYPT_MODE, symmetricKey, spec);
 							FileInputStream fis = new FileInputStream(fc.getSelectedFile());
@@ -379,14 +382,14 @@ public class CryptMenu extends JMenu {
 		decryptSFile.addActionListener(
 			new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					enCodeIt("Blowfish/CBC/PKCS7Padding", false, symmetricKey, ivSpec);
+					enCodeIt("AES/CBC/PKCS5Padding", false, symmetricKey, ivSpec);
 /*
 					JFileChooser fc = new JFileChooser(System.getProperty("user.dir"));
 					fc.setDialogTitle("Choose file to decrypt");
 					int returnValue = fc.showOpenDialog(mainFrame.getContentPane());
 					if (returnValue==JFileChooser.APPROVE_OPTION) {
 						try {
-							Cipher cipher = Cipher.getInstance("Blowfish/CBC/PKCS7Padding","BC");
+							Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding","BC");
 							IvParameterSpec spec = new IvParameterSpec(iv);
 							cipher.init(Cipher.DECRYPT_MODE, symmetricKey, spec);
 							FileInputStream fis = new FileInputStream(fc.getSelectedFile());
