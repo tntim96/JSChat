@@ -80,6 +80,8 @@ public class CryptMenu extends JMenu {
 	JMenuItem keyStorePassword = new JMenuItem("Enter KeyStore Password");
 	JMenuItem generateKeyStore = new JMenuItem("Generate KeyStore");
 	JMenuItem loadKeyStore = new JMenuItem("Load KeyStore");
+	JMenuItem exportPublicKey = new JMenuItem("Export Public Key");
+	JMenuItem importPublicKey = new JMenuItem("Import Public Key");
 	JMenuItem generateAKey = new JMenuItem("Generate Asymmetric Keys");
 	JMenuItem loadPrivateKey = new JMenuItem("Load Private Key");
 	JMenuItem loadPublicKey = new JMenuItem("Load Public Key");
@@ -144,19 +146,11 @@ public class CryptMenu extends JMenu {
                         kpg.initialize(asymmetricStrength, new SecureRandom());
                         System.out.println("Generating the key pair...");
                         KeyPair pair = kpg.genKeyPair();
-                        Key publicKey1 = pair.getPublic();
-                        Key privateKey1 = pair.getPrivate();
-
-                        Cipher cipher = CryptMenu.getBlockCiphers()[0];
-                        cipher.init(Cipher.ENCRYPT_MODE, State.getKeyFromPassword());
                         Map<String, Key> keyStore = new HashMap<String, Key>();
-                        keyStore.put("myPrivateKey", privateKey1);
-                        keyStore.put("myPublicKey", publicKey1);
-                        CipherOutputStream cos = new CipherOutputStream(new FileOutputStream("jschat.keyStore"), cipher);
+                        keyStore.put("myPrivateKey", pair.getPrivate());
+                        keyStore.put("myPublicKey", pair.getPublic());
 
-                        ObjectOutputStream out = new ObjectOutputStream(cos);
-                        out.writeObject(keyStore);
-                        out.close();
+                        saveKeyStore(keyStore);
                     } catch (Exception exc) {
 						exc.printStackTrace();
 					}
@@ -181,6 +175,59 @@ public class CryptMenu extends JMenu {
                         in.close();
                         for (String alias : State.keyStore.keySet()) {
                             System.out.println("alias = " + alias + "\t:" + State.keyStore.get(alias));
+                        }
+                        exportPublicKey.setEnabled(true);
+                        importPublicKey.setEnabled(true);
+                    } catch (Exception exc) {
+						exc.printStackTrace();
+					}
+				}
+			}
+		);
+
+        exportPublicKey.setEnabled(false);
+		add(exportPublicKey);
+        exportPublicKey.addActionListener(
+			new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					try {
+                        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("public.key"));
+                        out.writeObject(State.keyStore.get("myPublicKey"));
+                        out.close();
+                    } catch (Exception exc) {
+						exc.printStackTrace();
+					}
+				}
+			}
+		);
+
+        importPublicKey.setEnabled(false);
+		add(importPublicKey);
+        importPublicKey.addActionListener(
+			new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					try {
+                        JFileChooser fc = new JFileChooser(System.getProperty("user.dir"));
+                        fc.setDialogTitle("Load Public Key");
+                        int returnValue = fc.showOpenDialog(mainFrame.getContentPane());
+                        if (returnValue==JFileChooser.APPROVE_OPTION) {
+                            try {
+                                ObjectInputStream in = new ObjectInputStream(
+                                        new FileInputStream(fc.getSelectedFile()));
+                                publicKey = (Key)in.readObject();
+                                in.close();
+                                if (privateKey!=null) {
+                                    mainFrame.localKeysLoaded();
+                                    secureChannel.setEnabled(true);
+                                }
+                                encryptPubFile.setEnabled(true);
+                                decryptPubFile.setEnabled(true);
+
+                                State.keyStore.put(fc.getSelectedFile().getName(), publicKey);
+                                saveKeyStore(State.keyStore);
+                            } catch (Exception exc) {
+                                exc.printStackTrace();
+                            }
                         }
                     } catch (Exception exc) {
 						exc.printStackTrace();
@@ -526,6 +573,15 @@ public class CryptMenu extends JMenu {
 			}
 		);
 	}
+
+    private void saveKeyStore(Map<String, Key> keyStore) throws Exception {
+        Cipher cipher = CryptMenu.getBlockCiphers()[0];
+        cipher.init(Cipher.ENCRYPT_MODE, State.getKeyFromPassword());
+        CipherOutputStream cos = new CipherOutputStream(new FileOutputStream("jschat.keyStore"), cipher);
+        ObjectOutputStream out = new ObjectOutputStream(cos);
+        out.writeObject(keyStore);
+        out.close();
+    }
 
     void enCodeIt(String algorithm, boolean encrypt, Key key) {
 		enCodeIt(algorithm, encrypt, key, null);
