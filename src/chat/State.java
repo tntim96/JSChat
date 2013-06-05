@@ -16,8 +16,12 @@ along with JSChat.  If not, see <http://www.gnu.org/licenses/>.
 */
 package chat;
 
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.security.Key;
+import java.security.spec.KeySpec;
 import java.util.Properties;
 
 /** This static class application-wide static variables */
@@ -46,7 +50,7 @@ public class State {
 	public static int numConnections = 0;
 	/** Seed for CRC32 */
 	public static long seed=0xFFFFFFFF;
-	
+
 	/** Gui left x co-ordinate */
 	public static int x = 50;
 	/** Gui top y co-ordinate */
@@ -55,9 +59,9 @@ public class State {
 	public static int width = 640;
 	/** Gui height */
 	public static int height = 300;
-	
-	private static Properties applicationProps = new Properties();;
-	
+
+	private static Properties applicationProps = new Properties();
+
 	/** Reads in saved state variables */
 	public State(){
 		readState();
@@ -86,8 +90,8 @@ public class State {
 			applicationProps.store(out, "---Properties for JSChat---");
 			out.close();
 		} catch (Exception e) {}
-	}		
-	
+	}
+
 	/** Restore last page visited for each subject and proxy settings */
 	private static void readState(){
 		try {
@@ -116,5 +120,15 @@ public class State {
 			if (applicationProps.containsKey("GuiHeight"))
 				height = Integer.parseInt(applicationProps.getProperty("GuiHeight"));
 		} catch (Exception e) {}
-	}		
+	}
+
+    public static Key getKeyFromPassword() {
+        try {
+            SecretKeyFactory factory = SecretKeyFactory.getInstance("PBEWithSHAAndTwofish-CBC", "BC");
+            KeySpec keyspec = new PBEKeySpec("password".toCharArray(), new byte[]{0}, 1000, 128);
+            return factory.generateSecret(keyspec);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -28,7 +28,6 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 public class PasswordDialog extends ChatDialog {
-    private JFrame parent;
     private JPasswordField pwdField;
 
     /** Command line startup */
