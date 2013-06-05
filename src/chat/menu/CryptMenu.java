@@ -82,6 +82,7 @@ public class CryptMenu extends JMenu {
 	JMenuItem loadKeyStore = new JMenuItem("Load KeyStore");
 	JMenuItem exportPublicKey = new JMenuItem("Export Public Key");
 	JMenuItem importPublicKey = new JMenuItem("Import Public Key");
+	JMenuItem loadPublicKeyFromKS = new JMenuItem("Load Public Key from Key store");
 	JMenuItem generateAKey = new JMenuItem("Generate Asymmetric Keys");
 	JMenuItem loadPrivateKey = new JMenuItem("Load Private Key");
 	JMenuItem loadPublicKey = new JMenuItem("Load Public Key");
@@ -174,10 +175,27 @@ public class CryptMenu extends JMenu {
                         State.keyStore = (Map<String, Key>)in.readObject();
                         in.close();
                         for (String alias : State.keyStore.keySet()) {
-                            System.out.println("alias = " + alias + "\t:" + State.keyStore.get(alias));
+                            System.out.println("alias = " + alias);
                         }
                         exportPublicKey.setEnabled(true);
                         importPublicKey.setEnabled(true);
+                        loadPublicKeyFromKS.setEnabled(true);
+                    } catch (Exception exc) {
+						exc.printStackTrace();
+					}
+				}
+			}
+		);
+
+        loadPublicKeyFromKS.setEnabled(false);
+		add(loadPublicKeyFromKS);
+        loadPublicKeyFromKS.addActionListener(
+			new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					try {
+                        for (String alias : State.keyStore.keySet()) {
+                            System.out.println("alias = " + alias);
+                        }
                     } catch (Exception exc) {
 						exc.printStackTrace();
 					}
