@@ -82,6 +82,5 @@ public class PasswordDialog extends ChatDialog {
     public void doClose() {
         State.password = pwdField.getPassword();
         dispose();
-        System.out.println("State.password = " + new String(State.password));
     }
 }
