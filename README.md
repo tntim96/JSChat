@@ -33,11 +33,8 @@ Encryption Details
 * Text chat uses RC4, 1024 bit
 * File transfer uses AES, 256 bit, CBC, PKCS#5
 
-Future changes are likely to inc;ude:
+Future changes are likely to include:
 * Make encryption implementations configurable
-* Allow for session keys longer than double the RSA block size
-* Upgrade default block cipher from Blowfish (to AES?)
-* Upgrade default stream cipher from RC4 (to RC6 or AES in CFB mode?)
 
 Session Key Exchange Process
 ----------------------------

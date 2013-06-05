@@ -34,6 +34,7 @@ public class State {
 	public static final String yourNameInit = "Remote User";
 	/** Name of user */
 	public static String yourName = yourNameInit;
+	public static char[] password;
 
 	/** Are we currently connected */
 	public static boolean connected = false;
