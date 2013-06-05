@@ -107,36 +107,19 @@ public class CryptMenu extends JMenu {
 						System.out.println("Initializing the KeyPairGenerator...");
 						KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA","BC");
 						kpg.initialize(asymmetricStrength, new SecureRandom());
-						//kpg.initialize(asymmetricStrength);
 						System.out.println("Generating the key pair...");
 						KeyPair pair = kpg.genKeyPair();
 						Key publicKey = pair.getPublic();
 						Key privateKey = pair.getPrivate();
 
-/*
-            FileOutputStream fos = new FileOutputStream("private.key");
-            fos.write(privateKey.getEncoded());
-            fos.close();
-            fos = new FileOutputStream("public.key");
-            fos.write(publicKey.getEncoded());
-            fos.close();
-//*/
-/**/
 						ObjectOutputStream out;
 						out = new ObjectOutputStream(new FileOutputStream("private.key"));
 						out.writeObject(privateKey);
-//						RSAPrivateKey rsaPrivKey = (RSAPrivateKey)privateKey;
-//						out.writeObject(rsaPrivKey.getModulus());
-//						out.writeObject(rsaPrivKey.getPrivateExponent());
 						out.close();
 				
 						out = new ObjectOutputStream(new FileOutputStream("public.key"));
 						out.writeObject(publicKey);
-//                        RSAPrivateKey rsaPubKey = (RSAPrivateKey)publicKey;
-//						out.writeObject(rsaPubKey.getModulus());
-//						out.writeObject(rsaPubKey.getPublicExponent());
 						out.close();
-//*/
 					} catch (Exception exc) {
 						exc.printStackTrace();
 					}
@@ -153,33 +136,14 @@ public class CryptMenu extends JMenu {
 					int returnValue = fc.showOpenDialog(mainFrame.getContentPane());
 					if (returnValue==JFileChooser.APPROVE_OPTION) {
 						try {
-/*
-							FileInputStream fis = new FileInputStream(fc.getSelectedFile());
-							byte[] keyBytes = new byte[(int)fc.getSelectedFile().length()];
-							int offSet = 0;
-							int numRead;
-							while ((numRead=fis.read(keyBytes, offSet, keyBytes.length-offSet))!=-1)
-								offSet += numRead;
-							fis.close();
-							//BigInteger bi[] = RSAKeyFactory.parseKey(keyBytes);
-							//privateKey = new RSAPrivKey(bi[0],bi[1]);
-							privateKey = new RSAPrivKeyCrt(keyBytes);
-//*/
-/**/
 							ObjectInputStream in = new ObjectInputStream(
 									new FileInputStream(fc.getSelectedFile()));
 							privateKey = (Key)in.readObject();
-//							privateKey = (Key)(new RSAPrivateKey((BigInteger)in.readObject(),
-//                                    (BigInteger)in.readObject(),(BigInteger)in.readObject(),
-//                                    (BigInteger)in.readObject(),(BigInteger)in.readObject(),
-//                                    (BigInteger)in.readObject(),(BigInteger)in.readObject(),
-//                                    (BigInteger)in.readObject()));
 							in.close();
 							if (publicKey!=null) {
 								mainFrame.localKeysLoaded();
 								secureChannel.setEnabled(true);
 							}
-//*/
 							encryptPrivFile.setEnabled(true);
 							decryptPrivFile.setEnabled(true);
 						} catch (Exception exc) {
@@ -199,29 +163,14 @@ public class CryptMenu extends JMenu {
 					int returnValue = fc.showOpenDialog(mainFrame.getContentPane());
 					if (returnValue==JFileChooser.APPROVE_OPTION) {
 						try {
-/*
-							FileInputStream fis = new FileInputStream(fc.getSelectedFile());
-							byte[] keyBytes = new byte[(int)fc.getSelectedFile().length()];
-							int offSet = 0;
-							int numRead;
-							while ((numRead=fis.read(keyBytes, offSet, keyBytes.length-offSet))!=-1)
-								offSet += numRead;
-							fis.close();
-							//BigInteger bi[] = RSAKeyFactory.parseKey(keyBytes);
-							//publicKey = new RSAPubKey(bi[0],bi[1]);
-							publicKey = new RSAPubKey(keyBytes);
-//*/
-/**/
 							ObjectInputStream in = new ObjectInputStream(
 									new FileInputStream(fc.getSelectedFile()));
 							publicKey = (Key)in.readObject();
-//							publicKey = (Key)(new RSAPublicKey((BigInteger)in.readObject(),(BigInteger)in.readObject()));
 							in.close();
 							if (privateKey!=null) {
 								mainFrame.localKeysLoaded();
 								secureChannel.setEnabled(true);
 							}
-//*/
 							encryptPubFile.setEnabled(true);
 							decryptPubFile.setEnabled(true);
 						} catch (Exception exc) {
@@ -291,12 +240,6 @@ public class CryptMenu extends JMenu {
                             FileOutputStream fos = new FileOutputStream(fc.getSelectedFile());
                             fos.write(symmetricKey.getEncoded());
                             fos.close();
-                            /*
-							ObjectOutputStream out = new ObjectOutputStream(
-									new FileOutputStream(fc.getSelectedFile()));
-							out.writeObject(symmetricKey);
-							out.close();
-							*/
 						} catch (Exception exc) {
 							exc.printStackTrace();
 						}
@@ -328,12 +271,6 @@ public class CryptMenu extends JMenu {
                             SecretKeyFactory skf = SecretKeyFactory.getInstance("AES","BC");
                             symmetricKey = skf.generateSecret(new SecretKeySpec(keyBytes, "AES"));
 							System.out.println("Converted to AESKey");
-							/*
-							ObjectInputStream in = new ObjectInputStream(
-									new FileInputStream(fc.getSelectedFile()));
-								symmetricKey = (Key)in.readObject();
-							in.close();
-							*/
 							encryptSFile.setEnabled(true);
 							decryptSFile.setEnabled(true);
 						} catch (Exception exc) {
