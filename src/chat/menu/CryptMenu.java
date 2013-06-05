@@ -16,6 +16,7 @@ along with JSChat.  If not, see <http://www.gnu.org/licenses/>.
 */
 package chat.menu;
 
+import chat.State;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import sun.misc.BASE64Encoder;
 
@@ -27,7 +28,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.security.*;
- 
+import java.util.HashMap;
+import java.util.Map;
+
+import static java.security.Security.addProvider;
+
 /** Utilities Menu */
 public class CryptMenu extends JMenu {
 	chat.Gui mainFrame;
@@ -72,6 +77,9 @@ public class CryptMenu extends JMenu {
 
 
 	JMenuItem secureChannel = new JMenuItem("Secure Channel");
+	JMenuItem keyStorePassword = new JMenuItem("Enter KeyStore Password");
+	JMenuItem generateKeyStore = new JMenuItem("Generate KeyStore");
+	JMenuItem loadKeyStore = new JMenuItem("Load KeyStore");
 	JMenuItem generateAKey = new JMenuItem("Generate Asymmetric Keys");
 	JMenuItem loadPrivateKey = new JMenuItem("Load Private Key");
 	JMenuItem loadPublicKey = new JMenuItem("Load Public Key");
@@ -92,12 +100,94 @@ public class CryptMenu extends JMenu {
 	public CryptMenu(final chat.Gui mainFrame) {
 		super("Crypt");
 
-		java.security.Security.addProvider(new BouncyCastleProvider());
+		addProvider(new BouncyCastleProvider());
 		this.mainFrame = mainFrame;
 
 		secureChannel.setEnabled(false);
 		add(secureChannel);
 		secureChannel.addActionListener(mainFrame);
+
+        add(keyStorePassword);
+        keyStorePassword.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        new PwdDialog(mainFrame);
+                    }
+
+                    class PwdDialog extends PasswordDialog {
+                        public PwdDialog(JFrame parent) {
+                            super(parent);
+                        }
+
+                        @Override
+                        public void doClose() {
+                            if (pwdField.getPassword().length > 0) {
+                                State.password = pwdField.getPassword();
+                                keyStorePassword.setEnabled(false);
+                                generateKeyStore.setEnabled(true);
+                                loadKeyStore.setEnabled(true);
+                            }
+                            super.doClose();
+                        }
+                    }
+                }
+        );
+
+        generateKeyStore.setEnabled(false);
+		add(generateKeyStore);
+        generateKeyStore.addActionListener(
+			new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					try {
+                        System.out.println("Initializing the KeyPairGenerator...");
+                        KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA","BC");
+                        kpg.initialize(asymmetricStrength, new SecureRandom());
+                        System.out.println("Generating the key pair...");
+                        KeyPair pair = kpg.genKeyPair();
+                        Key publicKey1 = pair.getPublic();
+                        Key privateKey1 = pair.getPrivate();
+
+                        Cipher cipher = CryptMenu.getBlockCiphers()[0];
+                        cipher.init(Cipher.ENCRYPT_MODE, State.getKeyFromPassword());
+                        Map<String, Key> keyStore = new HashMap<String, Key>();
+                        keyStore.put("myPrivateKey", privateKey1);
+                        keyStore.put("myPublicKey", publicKey1);
+                        CipherOutputStream cos = new CipherOutputStream(new FileOutputStream("jschat.keyStore"), cipher);
+
+                        ObjectOutputStream out = new ObjectOutputStream(cos);
+                        out.writeObject(keyStore);
+                        out.close();
+                    } catch (Exception exc) {
+						exc.printStackTrace();
+					}
+				}
+			}
+		);
+
+        loadKeyStore.setEnabled(false);
+		add(loadKeyStore);
+        loadKeyStore.addActionListener(
+			new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					try {
+
+                        Cipher cipher = CryptMenu.getBlockCiphers()[0];
+                        cipher.init(Cipher.DECRYPT_MODE, State.getKeyFromPassword());
+                        new HashMap<String, Key>();
+                        CipherInputStream cis = new CipherInputStream(new FileInputStream("jschat.keyStore"), cipher);
+
+                        ObjectInput in = new ObjectInputStream(cis);
+                        State.keyStore = (Map<String, Key>)in.readObject();
+                        in.close();
+                        for (String alias : State.keyStore.keySet()) {
+                            System.out.println("alias = " + alias + "\t:" + State.keyStore.get(alias));
+                        }
+                    } catch (Exception exc) {
+						exc.printStackTrace();
+					}
+				}
+			}
+		);
 
 		add(generateAKey);
 		generateAKey.addActionListener(
@@ -116,7 +206,7 @@ public class CryptMenu extends JMenu {
 						out = new ObjectOutputStream(new FileOutputStream("private.key"));
 						out.writeObject(privateKey);
 						out.close();
-				
+
 						out = new ObjectOutputStream(new FileOutputStream("public.key"));
 						out.writeObject(publicKey);
 						out.close();
@@ -437,7 +527,7 @@ public class CryptMenu extends JMenu {
 		);
 	}
 
-	void enCodeIt(String algorithm, boolean encrypt, Key key) {
+    void enCodeIt(String algorithm, boolean encrypt, Key key) {
 		enCodeIt(algorithm, encrypt, key, null);
 	}
 

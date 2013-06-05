@@ -272,7 +272,6 @@ public class Gui extends JFrame implements ActionListener, ConnectionListener, M
 				break;
 			case ConnectionListener.FAILED:
 				connectionServer.removeConnectionListener(this);
-				connectionServer = null;
 				updateDisplay(e.getDescription());
 				Toolkit.getDefaultToolkit().beep();
 				break;
@@ -281,7 +280,6 @@ public class Gui extends JFrame implements ActionListener, ConnectionListener, M
 				miStopListen.setEnabled(false);
 				connectionServer.removeConnectionListener(this);
 				updateDisplay(e.getDescription());
-				connectionServer = null;
 				Toolkit.getDefaultToolkit().beep();
 				break;
 			default: System.err.println("Invalid ConnectionEvent type "+e.getType());

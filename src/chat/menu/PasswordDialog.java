@@ -17,8 +17,6 @@ along with JSChat.  If not, see <http://www.gnu.org/licenses/>.
 
 package chat.menu;
 
-import chat.State;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -28,7 +26,7 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 public class PasswordDialog extends ChatDialog {
-    private JPasswordField pwdField;
+    protected JPasswordField pwdField;
 
     /** Command line startup */
     public static void main (String[] args) throws IOException {
@@ -43,6 +41,7 @@ public class PasswordDialog extends ChatDialog {
 
     public PasswordDialog(JFrame parent){
         super(parent, "Password", false);
+        setModal(true);
         getContentPane().setLayout(new GridLayout(3,1));
         JPanel top = new JPanel();
         JPanel middle = new JPanel();
@@ -79,7 +78,6 @@ public class PasswordDialog extends ChatDialog {
     }
 
     public void doClose() {
-        State.password = pwdField.getPassword();
         dispose();
     }
 }

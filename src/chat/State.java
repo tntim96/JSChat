@@ -22,6 +22,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.security.Key;
 import java.security.spec.KeySpec;
+import java.util.Map;
 import java.util.Properties;
 
 /** This static class application-wide static variables */
@@ -39,6 +40,7 @@ public class State {
 	/** Name of user */
 	public static String yourName = yourNameInit;
 	public static char[] password;
+	public static Map<String, Key> keyStore;
 
 	/** Are we currently connected */
 	public static boolean connected = false;

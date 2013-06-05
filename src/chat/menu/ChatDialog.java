@@ -34,7 +34,7 @@ public class ChatDialog extends JDialog {
 		);
 	}
 
-	protected void doClose() {dispose();}
+    protected void doClose() {dispose();}
 
 	protected void center() {
 		int x = parent.getLocation().x+(parent.getSize().width/2)-getSize().width/2;

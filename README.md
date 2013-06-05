@@ -32,6 +32,7 @@ Encryption Details
 * Public/Private Keys are RSA, 1024 bit
 * Text chat uses RC4, 1024 bit
 * File transfer uses AES, 256 bit, CBC, PKCS#5
+* Key store uses PBE with SHA and Twofish CBC
 
 Future changes are likely to include:
 * Make encryption implementations configurable
