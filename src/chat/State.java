@@ -127,7 +127,7 @@ public class State {
     public static Key getKeyFromPassword() {
         try {
             SecretKeyFactory factory = SecretKeyFactory.getInstance("PBEWithSHAAndTwofish-CBC", "BC");
-            KeySpec keyspec = new PBEKeySpec("password".toCharArray(), new byte[]{0}, 1000, 128);
+            KeySpec keyspec = new PBEKeySpec(password, new byte[]{0}, 1000, 128);
             return factory.generateSecret(keyspec);
         } catch (Exception e) {
             throw new RuntimeException(e);

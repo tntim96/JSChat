@@ -82,10 +82,7 @@ public class CryptMenu extends JMenu {
 	JMenuItem loadKeyStore = new JMenuItem("Load KeyStore");
 	JMenuItem exportPublicKey = new JMenuItem("Export Public Key");
 	JMenuItem importPublicKey = new JMenuItem("Import Public Key");
-	JMenuItem loadPublicKeyFromKS = new JMenuItem("Load Public Key from Key store");
-	JMenuItem generateAKey = new JMenuItem("Generate Asymmetric Keys");
-	JMenuItem loadPrivateKey = new JMenuItem("Load Private Key");
-	JMenuItem loadPublicKey = new JMenuItem("Load Public Key");
+	JMenuItem loadPublicKeyFromKS = new JMenuItem("Load Public Key");
 
 	JMenuItem encryptPrivFile = new JMenuItem("Encrypt File (Private)");
 	JMenuItem decryptPrivFile = new JMenuItem("Decrypt File (Private)");
@@ -166,17 +163,14 @@ public class CryptMenu extends JMenu {
 				public void actionPerformed(ActionEvent e) {
 					try {
 
-                        Cipher cipher = CryptMenu.getBlockCiphers()[0];
+                        Cipher cipher = CryptMenu.getBlockCiphers()[1];
                         cipher.init(Cipher.DECRYPT_MODE, State.getKeyFromPassword());
-                        new HashMap<String, Key>();
                         CipherInputStream cis = new CipherInputStream(new FileInputStream("jschat.keyStore"), cipher);
 
                         ObjectInput in = new ObjectInputStream(cis);
                         State.keyStore = (Map<String, Key>)in.readObject();
                         in.close();
-                        for (String alias : State.keyStore.keySet()) {
-                            System.out.println("alias = " + alias);
-                        }
+                        privateKey = State.keyStore.get("myPrivateKey");
                         exportPublicKey.setEnabled(true);
                         importPublicKey.setEnabled(true);
                         loadPublicKeyFromKS.setEnabled(true);
@@ -191,15 +185,30 @@ public class CryptMenu extends JMenu {
 		add(loadPublicKeyFromKS);
         loadPublicKeyFromKS.addActionListener(
 			new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					try {
-                        for (String alias : State.keyStore.keySet()) {
-                            System.out.println("alias = " + alias);
+                public void actionPerformed(ActionEvent e) {
+                    new SelKeyDialog(mainFrame, State.keyStore.keySet().toArray(new String[]{}));
+                }
+
+                class SelKeyDialog extends SelectKeyDialog {
+                    public SelKeyDialog(JFrame parent, String[] list) {
+                        super(parent, list);
+                    }
+
+                    @Override
+                    public void doClose() {
+                        String selectedItem = (String) jComboBox.getSelectedItem();
+                        if (selectedItem != null) {
+                            publicKey = State.keyStore.get(selectedItem);
+                            if (privateKey != null) {
+                                mainFrame.localKeysLoaded();
+                                secureChannel.setEnabled(true);
+                            }
+                            encryptPubFile.setEnabled(true);
+                            decryptPubFile.setEnabled(true);
                         }
-                    } catch (Exception exc) {
-						exc.printStackTrace();
-					}
-				}
+                        super.doClose();
+                    }
+                }
 			}
 		);
 
@@ -234,12 +243,6 @@ public class CryptMenu extends JMenu {
                                         new FileInputStream(fc.getSelectedFile()));
                                 publicKey = (Key)in.readObject();
                                 in.close();
-                                if (privateKey!=null) {
-                                    mainFrame.localKeysLoaded();
-                                    secureChannel.setEnabled(true);
-                                }
-                                encryptPubFile.setEnabled(true);
-                                decryptPubFile.setEnabled(true);
 
                                 State.keyStore.put(fc.getSelectedFile().getName(), publicKey);
                                 saveKeyStore(State.keyStore);
@@ -249,88 +252,6 @@ public class CryptMenu extends JMenu {
                         }
                     } catch (Exception exc) {
 						exc.printStackTrace();
-					}
-				}
-			}
-		);
-
-		add(generateAKey);
-		generateAKey.addActionListener(
-			new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					try {
-						System.out.println("Initializing the KeyPairGenerator...");
-						KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA","BC");
-						kpg.initialize(asymmetricStrength, new SecureRandom());
-						System.out.println("Generating the key pair...");
-						KeyPair pair = kpg.genKeyPair();
-						Key publicKey = pair.getPublic();
-						Key privateKey = pair.getPrivate();
-
-						ObjectOutputStream out;
-						out = new ObjectOutputStream(new FileOutputStream("private.key"));
-						out.writeObject(privateKey);
-						out.close();
-
-						out = new ObjectOutputStream(new FileOutputStream("public.key"));
-						out.writeObject(publicKey);
-						out.close();
-					} catch (Exception exc) {
-						exc.printStackTrace();
-					}
-				}
-			}
-		);
-
-		add(loadPrivateKey);
-		loadPrivateKey.addActionListener(
-			new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					JFileChooser fc = new JFileChooser(System.getProperty("user.dir"));
-					fc.setDialogTitle("Load Private Key");
-					int returnValue = fc.showOpenDialog(mainFrame.getContentPane());
-					if (returnValue==JFileChooser.APPROVE_OPTION) {
-						try {
-							ObjectInputStream in = new ObjectInputStream(
-									new FileInputStream(fc.getSelectedFile()));
-							privateKey = (Key)in.readObject();
-							in.close();
-							if (publicKey!=null) {
-								mainFrame.localKeysLoaded();
-								secureChannel.setEnabled(true);
-							}
-							encryptPrivFile.setEnabled(true);
-							decryptPrivFile.setEnabled(true);
-						} catch (Exception exc) {
-							exc.printStackTrace();
-						}
-					}
-				}
-			}
-		);
-
-		add(loadPublicKey);
-		loadPublicKey.addActionListener(
-			new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					JFileChooser fc = new JFileChooser(System.getProperty("user.dir"));
-					fc.setDialogTitle("Load Public Key");
-					int returnValue = fc.showOpenDialog(mainFrame.getContentPane());
-					if (returnValue==JFileChooser.APPROVE_OPTION) {
-						try {
-							ObjectInputStream in = new ObjectInputStream(
-									new FileInputStream(fc.getSelectedFile()));
-							publicKey = (Key)in.readObject();
-							in.close();
-							if (privateKey!=null) {
-								mainFrame.localKeysLoaded();
-								secureChannel.setEnabled(true);
-							}
-							encryptPubFile.setEnabled(true);
-							decryptPubFile.setEnabled(true);
-						} catch (Exception exc) {
-							exc.printStackTrace();
-						}
 					}
 				}
 			}
