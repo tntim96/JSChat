@@ -60,6 +60,7 @@
 			<fileset dir="Meta-inf"/>
 		</copy>
 		<mkdir dir="${dist}"/>
+        <copy file="lib/bcprov-jdk15on-148.jar" todir="${dist}"/>
 		<jar jarfile="${dist}/JSChat.jar" basedir="${build}/classes" manifest="${build}/classes/Meta-inf/Manifest.mf"/>
 	</target>
 
