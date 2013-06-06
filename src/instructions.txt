@@ -1,0 +1,41 @@
+JSChat By tntim96
+https://github.com/tntim96/JSChat
+
+JSChat is an internet utility that allows you to "text" chat and send files securely across the internet.
+
+To connect to a friend you must both be connected to the internet. You must also decide who is to select "Network">"Listen for a connection" and who is to select "Network">"Connect to Server". Whoever selects "Network">"Connect to Server" must first select "Setup">"Connect IP Address" and set the "Connect IP Address" to the IP address of the other person.
+
+To prepare for an encrypted conversation:
+1)Person A and B select "Crypt">"Generate Assymetric Keys"
+2)Person A and B give each other their public keys
+
+The typical series of events to set-up a connection are:
+1)Arrange a time for you and your friend to connect to the Internet
+2)Person A selects "Utilties">"Obtain your IP Address"
+3)Person A then emails his/her IP Address to person B
+4)Person A then selects "Network">"Listen for Connection"
+5)Person B then reads the email and sets the "Connect IP Address" address by selecting "Setup">"Connect IP Address"
+6)Person B then selects "Network">"Connect to Server"
+
+To secure the channel:
+1)Person A and B select "Crypt">"Load Private Key"
+2)Each person selects their own private key
+3)Person A and B select "Crypt">"Load Public Key"
+4)Each person selects the other's public key
+5)Person A or B selects "Crypt">"Secure Channel"
+
+To send a file:
+1)Person A selects "Utilities">"Send a File" then select a file to send
+2)Person B will see a save dialog to save the file
+
+If the file transfer is interrupted or cancelled, you can resume the file transfer:
+1)Person A selects "Utilities">"Send a File", then selects the file to resume sending
+2)Person B will see a save dialog and should select the original file from the first file transfer.
+
+To compare large files on different computers (e.g. after sending a file)
+1)Person A selects "File Integrity">"CRC32" then select the file
+2)Person B selects "File Integrity">"CRC32" then select the same file on his/her system
+3)Person A and B can then compare the CRC32 value - if the CRC32 values are the same the files should be the same
+4)To improve the comparison Person A and B can agree on a different seed and generate a new CRC32 value by selecting "File Integrity">"SEED" and entering the new seed. The seed can consist of 8 Hex digits (characters between 0-9 and a-f). Person A and B then follow steps 1 to 3.
+
+When using JSChat for long periods, JSChat may be set to run in the background. To regain the other users attention, select "Utilities">"Wake Remote User". This will cause the remote user's computer to beep, and also bring JSChat to the foreground of their screen.
