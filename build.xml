@@ -92,7 +92,8 @@
 		</tstamp>
 		<jar jarfile="${release}/JSChatSource-${DSTAMP}.jar" basedir="${src}"/>
 		<mkdir dir="${release}/lib"/>
-		<copy file="${dist}/JSChat.jar" tofile="${release}/lib/JSChat.jar"/>
+		<copy file="${dist}/JSChat.jar" todir="${release}/lib/"/>
+		<copy file="lib/bcprov-jdk15on-148.jar" todir="${release}/lib/"/>
 		<delete file="${release}/JSChat.tar"/>
 		<delete file="${release}/JSChat.tar.gz"/>
 		<tar longfile="gnu" tarfile="${release}/JSChat.tar" >
@@ -102,11 +103,11 @@
 			</tarfileset> 
 			<tarfileset dir="${release}" mode="644"> 
 				<include name="readme.txt"/>
-				<include name="java_win32.policy"/>
-				<include name="java_unix.policy"/>
+				<!--<include name="java_win32.policy"/>-->
+				<!--<include name="java_unix.policy"/>-->
 			</tarfileset>
-			<tarfileset dir="${release}" mode="555"> 
-				<include name="lib/JSChat.jar"/>
+			<tarfileset dir="${release}" mode="550">
+				<include name="lib/*.jar"/>
 			</tarfileset>
 		</tar>
 		<gzip zipfile="${release}/JSChat.tar.gz" src="${release}/JSChat.tar"/>

@@ -3,7 +3,7 @@ JSChat - A Secure Chat and File Transfer Program
 
 JSChat is a platform independent secure chat and file transfer program written in Java Swing.
 
-JSCover is free software, distributed under the
+JSChat is free software, distributed under the
 [GNU General Public License version 3](http://www.gnu.org/licenses/gpl.txt).
 
 Features
